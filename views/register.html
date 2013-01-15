@@ -1,0 +1,27 @@
+<section id="register" class="register-login">
+	<form action="<?= $this->self ?>" method="post">
+		<p>
+			<label for="username">Username</label>
+			<input type="text" name="username" id="username">
+		</p>
+
+		<p>
+			<label for="password">Password</label>
+			<input type="password" name="password" id="password">
+		</p>
+
+		<p>
+			<label for="timezone">Time zone</label>
+			<select name="timezone" id="timezone">
+				<? foreach($this->timezones as $zone) { ?>
+				<option value="<?= $zone->zone ?>"
+				<? if($zone->zone == 'UTC') { ?>selected<? } ?>>(GMT<?= $zone->offset ?>) <?= $zone->zone ?></option>
+				<? } ?>
+			</select>
+		</p>
+
+		<p>
+			<input type="submit" value="Create my account">
+		</p>
+	</form>
+</section>
