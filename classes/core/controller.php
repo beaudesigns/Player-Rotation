@@ -18,9 +18,9 @@ class Controller
 		{
 			return;
 		}
-		set_exception_handler('Controller::exception_handler');
-		set_error_handler('Controller::error_handler', E_ALL | E_STRICT);
-		register_shutdown_function('Controller::shutdown_function');
+		#set_exception_handler('Controller::exception_handler');
+		#set_error_handler('Controller::error_handler', E_ALL | E_STRICT);
+		#register_shutdown_function('Controller::shutdown_function');
 
 		$this->self = str_replace('?' . $_SERVER['QUERY_STRING'], '', $_SERVER['REQUEST_URI']);
 		$this->selfQueryString = $_SERVER['REQUEST_URI'];

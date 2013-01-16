@@ -23,6 +23,15 @@ class registerController extends Controller
 
 		usort($this->timezones, 'self::sortOffset');
 
+		if(!empty($_POST['username']) && !empty($_POST['password']))
+		{
+			if(self::$user->createAccount($_POST['username'], $_POST['password'], $_POST['timezone']))
+			{
+				header('Location: /');
+				exit;
+			}
+		}
+
 		$this->render();
 	}
 

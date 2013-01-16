@@ -22,7 +22,7 @@ if(!isset($_SESSION))
 }
 
 // Set up the Application specific settings.
-$Configuration['Application']['Title'] = 'Twinkies';
+$Configuration['Application']['Title'] = 'Twinkies Player Rotation';
 $Configuration['Application']['Locale'] = 'en-US';
 $Configuration['Application']['Controller.Default'] = 'index';
 $Configuration['Application']['Date.Format'] = 'm/d/Y';

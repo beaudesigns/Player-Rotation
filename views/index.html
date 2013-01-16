@@ -1,3 +1,75 @@
-<section>
-	<p>Hello World!</p>
+<section id="timezones">
+	<? foreach($this->timezones as $zone) { ?>
+	<div class="zone">
+		<h3 class="offset">GMT<?= $zone->offset ?></h3>
+		<h4 class="local"><?= $zone->localTime->format('D g:ia'); ?></h4>
+		<ul>
+			<? foreach($zone->users AS $user) { ?>
+			<li><?= $user ?></li>
+			<? } ?>
+		</ul>
+	</div>
+	<? } ?>
+</section>
+
+<section id="settings">
+	<h3>Settings</h3>
+
+	<form action="<?= $this->self ?>" method="post">
+		<p>
+			<label for="rounds">Rounds this week</label>
+			<select name="rounds" id="rounds">
+				<? for($i = 1; $i <= 20; ++$i) { ?>
+				<option value="<?= $i ?>"
+				<? if($this->settings->rounds == $i) { ?>selected<? } ?>><?= $i ?></option>
+				<? } ?>
+			</select>
+		</p>
+
+		<ul>
+			<label for="players[<?= $this->players[0]->id ?>]">Playing all matches</label>
+			<? foreach($this->players as $player) { ?>
+			<li>
+				<input type="checkbox" name="players[<?= $player->id ?>]" id="players[<?= $player->id ?>]" <? if(!empty($player->all_rounds)) { ?>checked<? } ?>>
+				<label for="players[<?= $player->id ?>]"><?= $player->username ?> (<?= $player->schedule_count ?> rounds)</label>
+			</li>
+			<? } ?>
+		</ul>
+
+		<p>
+			<input type="checkbox" name="locked" id="locked" <? if(!empty($this->settings->locked_schedule)) { ?>checked<? } ?>>
+			<label for="locked">Lock this schedule</label>
+		</p>
+
+		<p>
+			<input type="submit" name="save-settings" value="Save settings">
+		</p>
+	</form>
+</section>
+
+<section id="schedule">
+	<form action="<?= $this->self ?>" method="post">
+		<? for($i = 1; $i <= $this->settings->rounds; ++$i) { ?>
+		<div class="round">
+			<h3>Round <?= $i ?></h3>
+
+			<? if(!empty($this->playingInRounds[$i])) { ?>
+			<ul class="playing">
+				<? foreach($this->playingInRounds[$i] as $player) { ?>
+				<li><?= $player ?></li>
+				<? } ?>
+			</ul>
+			<? } ?>
+
+			<span class="i-can-play">
+				<label for="playing[<?= $i ?>]">I can play</label>
+				<input type="checkbox" name="playing[<?= $i ?>]" id="playing[<?= $i ?>]" <? if(is_array($this->playerSchedule->rounds_available) && array_key_exists($i, $this->playerSchedule->rounds_available)) { ?>checked<? } ?>>
+			</span>
+		</div>
+		<? } ?>
+
+		<p>
+			<input type="submit" name="save-schedule" id="save-schedule" value="Save schedule">
+		</p>
+	</form>
 </section>

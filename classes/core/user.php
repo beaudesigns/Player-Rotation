@@ -4,16 +4,16 @@ class User
 {
 
 	public $storage;
-	private $database;
+	private static $database;
 
 	public function __construct(PDO &$database)
 	{
-		$this->database = &$database;
+		self::$database = & $database;
 		if(empty($_SESSION['user']))
 		{
 			$_SESSION['user'] = new stdClass();
 		}
-		$this->storage = &$_SESSION['user'];
+		$this->storage = & $_SESSION['user'];
 	}
 
 	public function isLoggedIn()
@@ -25,19 +25,10 @@ class User
 		return false;
 	}
 
-	public function requireLogin()
+	public function logIn($username, $password)
 	{
-		if($this->isLoggedIn())
-		{
-			return true;
-		}
-		return false;
-	}
-
-	public function logIn($email, $password)
-	{
-		$query = $this->database->prepare("SELECT * FROM user WHERE email = :email AND password = :password");
-		$query->bindValue(':email', $email, PDO::PARAM_STR);
+		$query = self::$database->prepare("SELECT * FROM users WHERE username = :username AND password = :password");
+		$query->bindValue(':username', $username, PDO::PARAM_STR);
 		$query->bindValue(':password', sha1($password), PDO::PARAM_STR);
 		$query->execute();
 		$record = $query->fetch();
@@ -45,6 +36,27 @@ class User
 		if(!empty($record))
 		{
 			$this->storage->id = $record->id;
+			return true;
+		}
+		return false;
+	}
+
+	public function createAccount($username, $password, $timezone)
+	{
+		$query = self::$database->prepare("SELECT COUNT(*) FROM users WHERE username = :username");
+		$query->bindValue(':username', $username, PDO::PARAM_STR);
+		$query->execute();
+		$exists = $query->fetchColumn();
+
+		if(empty($exists))
+		{
+			$query = self::$database->prepare("INSERT INTO users (username, password, timezone) VALUES (:username, :password, :timezone)");
+			$query->bindValue(':username', $username, PDO::PARAM_STR);
+			$query->bindValue(':password', sha1($password), PDO::PARAM_STR);
+			$query->bindValue(':timezone', $timezone, PDO::PARAM_STR);
+			$query->execute();
+
+			$this->logIn($username, $password);
 			return true;
 		}
 		return false;

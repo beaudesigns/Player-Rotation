@@ -1,0 +1,90 @@
+html, body {
+	color: #333;
+	font: 16px Helmet, Freesans, sans-serif;
+}
+
+h2, h3, h4, h5, h6 {
+	margin: 0 0 .1em 0;
+	padding: 0;
+}
+
+h3 {
+	font-size: 1.3em;
+}
+
+h4 {
+	font-size: 1em;
+}
+
+section#timezones {
+	padding: 0 1em;
+	overflow: auto;
+	margin-bottom: 3em;
+	border-bottom: 5px solid #0a486b;
+}
+
+div.zone {
+	float: left;
+	padding: 0 2em;
+	margin-bottom: 2em;
+}
+
+div.zone ul {
+	margin: .5em 0 0 .5em;
+	padding: 0;
+	list-style-type: none;
+}
+
+div.offset {
+	font-weight: bold;
+	font-size: 1.3em;
+}
+
+section#settings {
+	background-color: #FFF;
+	color: #333;
+	padding: 1em;
+	float: right;
+	width: 20%;
+}
+
+section#settings ul {
+	margin: .5em 0 0 .5em;
+	padding: 0;
+	list-style-type: none;
+}
+
+section#schedule {
+	overflow: auto;
+	width: 75%;
+}
+
+div.round {
+	padding: .5em;
+	margin: 0 1em 2em 1em;
+	float: left;
+	min-height: 8em;
+	min-width: 12em;
+
+	background-color: #cff09e;
+	color: #245151;
+	border-bottom: 3px solid #b9d68d;
+	border-right: 3px solid #b9d68d;
+	position: relative;
+}
+
+div.round ul {
+	margin: .5em 0 0 .5em;
+	padding: 0;
+	list-style-type: none;
+}
+
+span.i-can-play {
+	position: absolute;
+	bottom: .2em;
+	right: .2em;
+}
+
+#save-schedule {
+	font-size: 1.5em;
+}
