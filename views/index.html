@@ -12,6 +12,7 @@
 	<? } ?>
 </section>
 
+<? if(self::$user->isManager()) { ?>
 <section id="settings">
 	<h3>Settings</h3>
 
@@ -46,8 +47,9 @@
 		</p>
 	</form>
 </section>
+<? } ?>
 
-<section id="schedule">
+<section id="schedule" class="<? if(self::$user->isManager()) { ?>settings-bar<? } ?>">
 	<form action="<?= $this->self ?>" method="post">
 		<? for($i = 1; $i <= $this->settings->rounds; ++$i) { ?>
 		<div class="round">

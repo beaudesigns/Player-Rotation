@@ -56,6 +56,9 @@ section#settings ul {
 
 section#schedule {
 	overflow: auto;
+}
+
+section.settings-bar {
 	width: 75%;
 }
 

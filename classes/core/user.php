@@ -25,6 +25,26 @@ class User
 		return false;
 	}
 
+	public function isManager()
+	{
+		if(!$this->isLoggedIn())
+		{
+			return false;
+		}
+
+		$query = self::$database->prepare("SELECT manager FROM users WHERE id = :user");
+		$query->bindValue(':user', $this->storage->id, PDO::PARAM_INT);
+		$query->execute();
+		$manager = $query->fetchColumn();
+
+		if(!empty($manager))
+		{
+			return true;
+		}
+
+		return false;
+	}
+
 	public function logIn($username, $password)
 	{
 		$query = self::$database->prepare("SELECT * FROM users WHERE username = :username AND password = :password");
