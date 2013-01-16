@@ -1,16 +1,8 @@
 <IfModule mod_rewrite.c>
-	RewriteEngine On
-
-	# Redirect for specific counties
-	RewriteRule ^bryan$ index.php/?selected-site=7 [L]
-	RewriteRule ^grady$ index.php/?selected-site=26 [L]
-	RewriteRule ^johnston$ index.php/?selected-site=35 [L]
-	RewriteRule ^stephens index.php/?selected-site=69 [L]
-
-	# Redirect everything else
-	RewriteCond %{REQUEST_FILENAME} !-d
-	RewriteCond %{REQUEST_FILENAME} !-f
-	RewriteRule ^(.*)$ index.php/$1 [QSA,L]
+   RewriteEngine On
+   RewriteCond %{REQUEST_FILENAME} !-d
+   RewriteCond %{REQUEST_FILENAME} !-f
+   RewriteRule ^(.*)$ index.php/$1 [QSA,L]
 </IfModule>
 
 <ifmodule mod_deflate.c>
