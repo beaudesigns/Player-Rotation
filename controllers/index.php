@@ -67,14 +67,20 @@ class indexController extends Controller
 
 			if(empty($this->timezones[$formattedOffset]))
 			{
-
 				$this->timezones[$formattedOffset] = new stdClass();
 				$this->timezones[$formattedOffset]->offset = $formattedOffset;
+				$this->timezones[$formattedOffset]->realOffset = $offset;
 				$this->timezones[$formattedOffset]->localTime = new DateTime('now', $locale);
 				$this->timezones[$formattedOffset]->users = array();
 			}
 			$this->timezones[$formattedOffset]->users[] = $row->username;
 		}
+		usort($this->timezones, 'self::sortOffset');
+	}
+
+	public static function sortOffset($a, $b)
+	{
+		return ($a->realOffset < $b->realOffset ? -1 : 1);
 	}
 
 	private function saveSettings()
