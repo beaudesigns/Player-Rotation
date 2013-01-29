@@ -15,6 +15,7 @@
 <? if(self::$user->isManager()) { ?>
 <section id="settings">
 	<h3>Settings</h3>
+	<a href="<?= $this->self ?>?reset">Reset all schedules</a>
 
 	<form action="<?= $this->self ?>" method="post">
 		<p>

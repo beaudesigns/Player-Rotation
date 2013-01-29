@@ -51,6 +51,13 @@ class indexController extends Controller
 			header('Location: ' . $this->self);
 			exit;
 		}
+		if(isset($_GET['reset']) && self::$user->isManager())
+		{
+			self::$database->exec("DELETE FROM schedule");
+			self::$database->exec("UPDATE USERS SET all_rounds = 0");
+			header('Location: ' . $this->self);
+			exit;
+		}
 
 		$this->render();
 	}
